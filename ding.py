@@ -1,1 +1,1 @@
-print("gal")
+print("lag")
