@@ -14,10 +14,12 @@ def datentime(query):
         re_year = d.strftime('%Y')
         return 'its' + " " + res_day + " " + res_day_no + " " + res_month + " " + re_year
     elif 'wish' in query:
-        res_wish = d.strftime('%p')
-        if 'AM' in res_wish:
+        res_wish = int(d.strftime('%H'))
+        if res_wish<12:
             return "good morning"
+        elif res_wish==12:
+            return "good noon"
+        elif 12<res_wish and res_wish<16:
+            return "good afternoon"
         else:
-            return "good night"
-    else:
-        pass
+            return "good evening"

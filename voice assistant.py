@@ -5,6 +5,7 @@ import dateandtime
 import pyjokes
 import screenshot as ssc
 
+
 def sayprime():
     r = sr.Recognizer()
 
@@ -14,10 +15,10 @@ def sayprime():
         print("im listening")
         try:
             audio = r.listen(source)  # record voice
-        except sr.WaitTimeoutError:
+        except sr.UnknownValueError:
             print("mic is not getting any voice")
         query = r.recognize_google(audio)
-        print(r.recognize_google(audio))
+        print(query)
         return query
 
 
@@ -29,7 +30,7 @@ def saysecondary():
         print("im listening")
         try:
             audio = r.listen(source)  # record voice
-        except sr.WaitTimeoutError:
+        except:
             print("mic is not getting any voice")
         query = r.recognize_google(audio)
         print(r.recognize_google(audio))
