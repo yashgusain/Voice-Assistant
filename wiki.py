@@ -1,4 +1,6 @@
 import wikipedia as wiki
+import search_google
+
 
 
 def wi(topic):
@@ -6,4 +8,5 @@ def wi(topic):
         wiki.summary(sentences=1, title=topic)
         return wiki.summary(sentences=1, title=topic)
     except wiki.exceptions.DisambiguationError:
-        return "please be more specific"
+        return search_google.google_search(topic)
+

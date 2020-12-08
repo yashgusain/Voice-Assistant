@@ -17,9 +17,7 @@ def datentime(query):
         res_wish = int(d.strftime('%H'))
         if res_wish<12:
             return "good morning"
-        elif res_wish==12:
-            return "good noon"
-        elif 12<res_wish and res_wish<16:
+        elif 12<=res_wish and res_wish<16:
             return "good afternoon"
         else:
             return "good evening"
