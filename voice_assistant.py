@@ -1,17 +1,15 @@
 import speech_recognition as sr
 import texttospeech as ttos
-import wiki
-import dateandtime
 import pyjokes
-import screenshot as ssc
-import search_google
+import search
+import basic_feature
 
 
 def sayprime():
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
-        greet = dateandtime.datentime('wish') + "how may i help you"
+        greet = basic_feature.datentime('wish') + "how may i help you"
         ttos.speak(greet)
         print("im listening")
 
@@ -19,11 +17,11 @@ def sayprime():
 
         try:
             query = r.recognize_google(audio)
+            print(query)
             return query
 
         except sr.UnknownValueError:
             ttos.speak("not getting any voice")
-            return "sorry"
 
 
 def saysecondary():
@@ -37,54 +35,73 @@ def saysecondary():
 
         try:
             query = r.recognize_google(audio)
-        except Exception:
-            print("not getting any voice")
-        print(query)
-        return query
+            return query
+        except sr.UnknownValueError:
+            ttos.speak("not getting any voice")
+
 
 
 # features
 def repeat():
     query = sayprime()
-    if 'date' in query or 'time' in query:  # date and time
-        resultdati = dateandtime.datentime(query)
-        # print(resultdati)
-        ttos.speak(resultdati)
 
-    elif 'who' in query or 'what' in query:  # wikipedia search
+    # date and time
+    if 'date' in query or 'time' in query:
+        try:
+            resultdati = basic_feature.datentime(query)
+            ttos.speak(resultdati)
+        except TypeError:
+            print(" ")
+
+    # wikipedia search
+
+    elif 'who' in query or 'what' in query:
         if 'who is' in query:
             query_search1 = query[7:]
-            wiki_result = wiki.wi(query_search1)
+            wiki_result = search.wi(query_search1)
             print(wiki_result)
             ttos.speak(wiki_result)
         else:
             query_search2 = query[8:]
-            ttos.speak(wiki.wi(query_search2))
+            ttos.speak(search.wi(query_search2))
 
+    # telling joke
 
-    elif "tell me a joke" in query or 'joke' in query:  # telling joke
+    elif "tell me a joke" in query or 'joke' in query:
         joke = pyjokes.get_joke(language='en', category='all')
         ttos.speak(joke)
 
+    # take screenshot
 
-    elif "take screenshot" in query or 'capture' in query:  # take screenshot
-        ssc.sshot()
+    elif "take screenshot" in query or 'capture' in query:
+        basic_feature.sshot()
         ttos.speak("screenshot sucessfully taken")
 
 
-    elif "how are you" in query or "how you doing" in query:
+    elif "how are you"in query or"how you doing"in query:
         ttos.speak("im good,how are you ")
+
+    # Google and Youtube search
 
     elif "search" in query:  # search in google
         google_search_query = query[7:]
-        search_google.google_search(google_search_query)
-
+        search.google_search(google_search_query)
+    elif "videos of " in query:
+        yt = query[10:]
+        search.youtube_search(yt)
 
     elif "sorry" in query:
 
         ttos.speak(print("this feature coming soon"))
+
     elif "no thanks " in query or "no" in query:
         print("okay")
+
+    # app opening
+
+    elif "open" in query:
+        basic_feature.openapps(query)
+        ttos.speak("opening app")
 
     print("you want me to continue")
     permission = saysecondary()
@@ -92,7 +109,11 @@ def repeat():
         repeat()
     elif permission == 'no' or permission == 'nope':
         ttos.speak("thank you")
-        return
+    else:
+        pass
 
 
-repeat()
+try:
+    repeat()
+except TypeError:
+    pass
