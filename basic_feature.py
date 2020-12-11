@@ -47,3 +47,13 @@ def openapps(query):
         subprocess.call("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
     else:
         pass
+
+
+def change_name(new_name):
+    with open("name.txt", mode="r+") as go:
+        fi = go.read()
+        f2 = fi.split(" ")
+        go.seek(0)
+        f5 = f2[0]
+        f3 = fi.replace(f5,new_name)
+        f4 = go.write(f3)

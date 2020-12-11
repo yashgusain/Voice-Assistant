@@ -9,8 +9,9 @@ def sayprime():
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
-        greet = basic_feature.datentime('wish') + "how may i help you"
-        ttos.speak(greet)
+        with open("name.txt","r+") as owner:
+            greet=basic_feature.datentime('wish')+owner.read()
+            ttos.speak(greet)
         print("im listening")
 
         audio = r.listen(source)  # record voice
@@ -102,6 +103,11 @@ def repeat():
     elif "open" in query:
         basic_feature.openapps(query)
         ttos.speak("opening app")
+    elif "change name to" in query:
+        name=query[14:]
+        basic_feature.change_name(name)
+        ttos.speak("name sucessfully changed")
+
 
     print("you want me to continue")
     permission = saysecondary()
