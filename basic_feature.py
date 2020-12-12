@@ -1,6 +1,7 @@
 import pyautogui
 import datetime
 import subprocess
+from translate import Translator
 
 def sshot():
     d = datetime.datetime.now()
@@ -50,10 +51,18 @@ def openapps(query):
 
 
 def change_name(new_name):
-    with open("name.txt", mode="r+") as go:
-        fi = go.read()
-        f2 = fi.split(" ")
-        go.seek(0)
-        f5 = f2[0]
-        f3 = fi.replace(f5,new_name)
-        f4 = go.write(f3)
+    with open("name.txt", mode="w+") as go:
+        name_change=go.read()
+        go.write(new_name)
+
+def remember_that(remember):
+    with open("journal.txt",mode="w+") as thing:
+        remembering=thing.read()
+        thing.write(remember)
+def translating(translate):
+    language=
+    trans = Translator(to_lang=)
+    print(trans.translate("thank you"))
+
+
+

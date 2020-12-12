@@ -10,7 +10,7 @@ def sayprime():
 
     with sr.Microphone() as source:
         with open("name.txt","r+") as owner:
-            greet=basic_feature.datentime('wish')+owner.read()
+            greet=basic_feature.datentime('wish')+owner.read()+"how can i help you"
             ttos.speak(greet)
         print("im listening")
 
@@ -104,9 +104,22 @@ def repeat():
         basic_feature.openapps(query)
         ttos.speak("opening app")
     elif "change name to" in query:
-        name=query[14:]
+        name=query[15:]
         basic_feature.change_name(name)
         ttos.speak("name sucessfully changed")
+    elif "remember that" in query:
+        thing_to_remember=query[14:]
+        basic_feature.remember_that(thing_to_remember)
+        ttos.speak("sucessfully remembered")
+
+    elif "read" in query:
+        with open("journal.txt",mode="r") as reading:
+            to_say="you said that"+reading.read()
+            ttos.speak(to_say)
+    elif "translate" in query:
+        word_split=query.split()
+        lang
+
 
 
     print("you want me to continue")
