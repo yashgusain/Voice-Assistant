@@ -1,7 +1,7 @@
 import pyautogui
 import datetime
 import subprocess
-from translate import Translator
+from googletrans import Translator
 
 def sshot():
     d = datetime.datetime.now()
@@ -59,10 +59,19 @@ def remember_that(remember):
     with open("journal.txt",mode="w+") as thing:
         remembering=thing.read()
         thing.write(remember)
-def translating(translate):
-    language=
-    trans = Translator(to_lang=)
-    print(trans.translate("thank you"))
+
+def translating(sentence, language,full_lang):
+    if full_lang=='portuguese':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='pt', src='en')
+        print(translate_process.text)
+
+    else:
+     translate=Translator()
+     translate_process=translate.translate(sentence,dest=language,src='en')
+     print(translate_process.text)
+
+
 
 
 

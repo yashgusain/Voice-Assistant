@@ -1,6 +1,5 @@
-h="how are you in english"
-word_split=h.split()
-remove_in=h[:-2]
-lang=h[-1]
-print(h)
-
+h="how are You"
+low = h.lower()
+lang = list(low.split(" "))
+language = lang[-1]
+print(language)

@@ -47,7 +47,7 @@ def repeat():
     query = sayprime()
 
     # date and time
-    if 'date' in query or 'time' in query:
+    if 'date' in query or 'tell me time' in query:
         try:
             resultdati = basic_feature.datentime(query)
             ttos.speak(resultdati)
@@ -58,8 +58,8 @@ def repeat():
 
     elif 'who' in query or 'what' in query:
         if 'who is' in query:
-            query_search1 = query[7:]
-            wiki_result = search.wi(query_search1)
+            query_searclang = query[7:]
+            wiki_result = search.wi(query_searclang)
             print(wiki_result)
             ttos.speak(wiki_result)
         else:
@@ -79,7 +79,7 @@ def repeat():
         ttos.speak("screenshot sucessfully taken")
 
 
-    elif "how are you"in query or"how you doing"in query:
+    elif "how are you"== query or"how you doing"== query:
         ttos.speak("im good,how are you ")
 
     # Google and Youtube search
@@ -95,7 +95,7 @@ def repeat():
 
         ttos.speak(print("this feature coming soon"))
 
-    elif "no thanks " in query or "no" in query:
+    elif "no thanks " == query or "no" == query:
         print("okay")
 
     # app opening
@@ -117,8 +117,17 @@ def repeat():
             to_say="you said that"+reading.read()
             ttos.speak(to_say)
     elif "translate" in query:
-        word_split=query.split()
-        lang
+        low=query.lower()
+        lang= list(low.split(" "))
+        language = lang[-1]
+        language_short = language[0:2]
+
+        removal_translate = lang.pop(0)
+        removal_in = lang.pop(-2)
+        removal_language = lang.pop(-1)
+        complete_sentence = " ".join(lang)
+
+        basic_feature.translating(complete_sentence,language_short,language)
 
 
 
