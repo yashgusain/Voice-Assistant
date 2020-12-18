@@ -61,15 +61,52 @@ def remember_that(remember):
         thing.write(remember)
 
 def translating(sentence, language,full_lang):
-    if full_lang=='portuguese':
+    try:
+     if full_lang=='portuguese':
         translate = Translator()
         translate_process = translate.translate(sentence, dest='pt', src='en')
         print(translate_process.text)
 
-    else:
-     translate=Translator()
-     translate_process=translate.translate(sentence,dest=language,src='en')
-     print(translate_process.text)
+     elif full_lang=='chinese':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='zh-cn', src='en')
+        print(translate_process.text)
+
+     elif full_lang == 'spanish':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='es', src='en')
+        print(translate_process.text)
+
+     elif full_lang=='bengali':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='bn', src='en')
+        print(translate_process.text)
+
+     elif full_lang=='dutch':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='nl', src='en')
+        print(translate_process.text)
+
+     elif full_lang=='punjabi':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='pa', src='en')
+        print(translate_process.text)
+
+     elif full_lang=='turkish':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='tr', src='en')
+        print(translate_process.text)
+
+     elif full_lang=='marathi':
+        translate = Translator()
+        translate_process = translate.translate(sentence, dest='mr', src='en')
+        print(translate_process.text)
+     else:
+        translate=Translator()
+        translate_process=translate.translate(sentence,dest=language,src='en')
+        print(translate_process.text)
+    except ValueError:
+      print("Sorry not compatile with this language try something else")
 
 
 

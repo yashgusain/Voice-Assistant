@@ -1,5 +1,3 @@
-h="how are You"
-low = h.lower()
-lang = list(low.split(" "))
-language = lang[-1]
-print(language)
+from googletrans import LANGUAGES
+for lang in LANGUAGES:
+    print(f'{lang} --{LANGUAGES[lang]}')
