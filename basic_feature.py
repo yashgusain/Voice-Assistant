@@ -2,6 +2,7 @@ import pyautogui
 import datetime
 import subprocess
 from googletrans import Translator
+import os
 
 def sshot():
     d = datetime.datetime.now()
@@ -109,6 +110,8 @@ def translating(sentence, language,full_lang):
       print("Sorry not compatile with this language try something else")
 
 
-
+def shutdown_process():
+    os.system("shutdown /s /t 1")
+    print("done")
 
 

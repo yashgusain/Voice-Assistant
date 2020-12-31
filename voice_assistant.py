@@ -5,12 +5,31 @@ import search
 import basic_feature
 
 
+def ordinary_say():
+    r = sr.Recognizer()
+
+    with sr.Microphone() as source:
+        print("listening")
+
+        audio = r.listen(source)  # record voice
+
+        try:
+            query = r.recognize_google(audio)
+            print(query)
+            return query
+
+        except sr.UnknownValueError:
+            ttos.speak("not getting any voice")
+
+
 def sayprime():
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
-        with open("name.txt","r+") as owner:
-            greet=basic_feature.datentime('wish')+owner.read()+"how can i help you"
+        with open("name.txt", "r+") as owner:
+            greet = (
+                basic_feature.datentime("wish") + owner.read() + "how can i help you"
+            )
             ttos.speak(greet)
         print("im listening")
 
@@ -41,13 +60,12 @@ def saysecondary():
             ttos.speak("not getting any voice")
 
 
-
 # features
 def repeat():
     query = sayprime()
 
     # date and time
-    if 'date' in query or 'tell me time' in query:
+    if "date" in query or "tell me time" in query:
         try:
             resultdati = basic_feature.datentime(query)
             ttos.speak(resultdati)
@@ -56,8 +74,8 @@ def repeat():
 
     # wikipedia search
 
-    elif 'who' in query or 'what' in query:
-        if 'who is' in query:
+    elif "who" in query or "what" in query:
+        if "who is" in query:
             query_searclang = query[7:]
             wiki_result = search.wi(query_searclang)
             print(wiki_result)
@@ -68,18 +86,17 @@ def repeat():
 
     # telling joke
 
-    elif "tell me a joke" in query or 'joke' in query:
-        joke = pyjokes.get_joke(language='en', category='all')
+    elif "tell me a joke" in query or "joke" in query:
+        joke = pyjokes.get_joke(language="en", category="all")
         ttos.speak(joke)
 
     # take screenshot
 
-    elif "take screenshot" in query or 'capture' in query:
+    elif "take screenshot" in query or "capture" in query:
         basic_feature.sshot()
         ttos.speak("screenshot sucessfully taken")
 
-
-    elif "how are you"== query or"how you doing"== query:
+    elif "how are you" == query or "how you doing" == query:
         ttos.speak("im good,how are you ")
 
     # Google and Youtube search
@@ -104,21 +121,30 @@ def repeat():
         basic_feature.openapps(query)
         ttos.speak("opening app")
     elif "change name to" in query:
-        name=query[15:]
+        name = query[15:]
         basic_feature.change_name(name)
         ttos.speak("name sucessfully changed")
     elif "remember that" in query:
-        thing_to_remember=query[14:]
+        thing_to_remember = query[14:]
         basic_feature.remember_that(thing_to_remember)
         ttos.speak("sucessfully remembered")
 
     elif "read" in query:
-        with open("journal.txt",mode="r") as reading:
-            to_say="you said that"+reading.read()
+        with open("journal.txt", mode="r") as reading:
+            to_say = "you said that" + reading.read()
             ttos.speak(to_say)
+
+    elif "shutdown" == query:
+        ttos.speak("are you sure ?")
+        conformation = ordinary_say()
+        if conformation == "yes":
+            basic_feature.shutdown_process()
+        else:
+            ttos.speak("got it")
+
     elif "translate" in query:
-        low=query.lower()
-        lang= list(low.split(" "))
+        low = query.lower()
+        lang = list(low.split(" "))
         language = lang[-1]
         language_short = language[0:2]
 
@@ -127,15 +153,13 @@ def repeat():
         removal_language = lang.pop(-1)
         complete_sentence = " ".join(lang)
 
-        basic_feature.translating(complete_sentence,language_short,language)
-
-
+        basic_feature.translating(complete_sentence, language_short, language)
 
     print("you want me to continue")
     permission = saysecondary()
     if permission == "yes" or permission == "yup":
         repeat()
-    elif permission == 'no' or permission == 'nope':
+    elif permission == "no" or permission == "nope":
         ttos.speak("thank you")
     else:
         pass
